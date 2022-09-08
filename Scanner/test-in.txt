@@ -1,0 +1,17 @@
+This is A tEsT
+cool iNterFace with nil of 
+opeRATOR
+
+'String test'
+'C''H''A''R'
+''
+
+<> > := ; {} <=/= * + -
+<><>
+
+10 20 002 10111
+10.002 101.1 2.22204
+
+6.6.6
+
+500 5.55
