@@ -1,0 +1,10 @@
+outdev	BYTE	5	; Output device number
+pstr	LDCH	0, X	; A = character to output
+	COMP	#0	; Check for null character (string terminator)
+	JGT	pstr1	; If not null, go print the character
+	RSUB		; If null, all done printing:  return to caller
+pstr1	TD	outdev	; Test to see if output device is ready
+	JEQ	pstr1	; Device not ready
+	WD	outdev	; Output A register to output device
+	TIX		; Increment X to point to next character
+	J	pstr	; loop

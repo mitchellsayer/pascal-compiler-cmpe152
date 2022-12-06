@@ -1,0 +1,117 @@
+
+Parsing Pass: There were no syntax errors.
+
+Parse tree (Lisp format):
+(program (programHeader PROGRAM (programIdentifier test) ;) (block (declarations (constantsPart CONST (constantDefinitionsList (constantDefinition (constantIdentifier constvar) = (constant (unsignedNumber (realConstant 3.14)))))) ; (variablesPart VAR (variableDeclarationsList (variableDeclarations (variableIdentifierList (variableIdentifier alpha)) : (typeSpecification (simpleType (typeIdentifier INTEGER)))) ; (variableDeclarations (variableIdentifierList (variableIdentifier beta)) : (typeSpecification (simpleType (typeIdentifier INTEGER)))) ; (variableDeclarations (variableIdentifierList (variableIdentifier result)) : (typeSpecification (simpleType (typeIdentifier INTEGER)))))) ; (routinesPart (routineDefinition (functionHead FUNCTION (routineIdentifier add) (parameters ( (parameterDeclarationsList (parameterDeclarations (parameterIdentifierList (parameterIdentifier a)) : (typeIdentifier INTEGER)) ; (parameterDeclarations (parameterIdentifierList (parameterIdentifier b)) : (typeIdentifier INTEGER))) )) : (typeIdentifier INTEGER)) ; (block (declarations (variablesPart VAR (variableDeclarationsList (variableDeclarations (variableIdentifierList (variableIdentifier c)) : (typeSpecification (simpleType (typeIdentifier INTEGER)))))) ;) (compoundStatement BEGIN (statementList (statement (assignmentStatement (lhs (variable (variableIdentifier c))) := (rhs (expression (simpleExpression (term (factor (variable (variableIdentifier a)))) (addOp +) (term (factor (variable (variableIdentifier b))))))))) ; (statement (assignmentStatement (lhs (variable (variableIdentifier add))) := (rhs (expression (simpleExpression (term (factor (variable (variableIdentifier c))))))))) ; (statement emptyStatement)) END)))) ;) (compoundStatement BEGIN (statementList (statement (assignmentStatement (lhs (variable (variableIdentifier alpha))) := (rhs (expression (simpleExpression (sign -) (term (factor (number (unsignedNumber (integerConstant 88)))))))))) ; (statement (assignmentStatement (lhs (variable (variableIdentifier beta))) := (rhs (expression (simpleExpression (term (factor (number (unsignedNumber (integerConstant 99)))))))))) ; (statement (assignmentStatement (lhs (variable (variableIdentifier result))) := (rhs (expression (simpleExpression (term (factor (functionCall (functionName add) ( (argumentList (argument (expression (simpleExpression (term (factor (variable (variableIdentifier alpha))))))) , (argument (expression (simpleExpression (term (factor (variable (variableIdentifier beta)))))))) ))))))))) ; (statement emptyStatement)) END)) .)
+
+Semantic Pass:
+
+===== SYMBOL TABLE & TYPE INFO =====
+
+*** PROGRAM test ***
+
+Identifier       Line numbers    Type specification
+----------       ------------    ------------------
+add             
+                                 Defined as: FUNCTION
+                                 Scope nesting level: 1
+                                 Type form = scalar, Type id = integer
+alpha            007 020 022
+                                 Defined as: variable
+                                 Scope nesting level: 1
+                                 Type form = scalar, Type id = integer
+beta             008 021 022
+                                 Defined as: variable
+                                 Scope nesting level: 1
+                                 Type form = scalar, Type id = integer
+constvar         004
+                                 Defined as: constant
+                                 Scope nesting level: 1
+                                 Type form = scalar, Type id = real
+                                 Value: 3.140000
+result           009 022
+                                 Defined as: variable
+                                 Scope nesting level: 1
+                                 Type form = scalar, Type id = integer
+
+*** FUNCTION add ***
+
+Identifier       Line numbers    Type specification
+----------       ------------    ------------------
+a                011 015
+                                 Defined as: value parameter
+                                 Scope nesting level: 2
+                                 Type form = scalar, Type id = integer
+add              016
+                                 Defined as: variable
+                                 Scope nesting level: 2
+                                 Type form = scalar, Type id = integer
+b                011 015
+                                 Defined as: value parameter
+                                 Scope nesting level: 2
+                                 Type form = scalar, Type id = integer
+c                013 015 016
+                                 Defined as: variable
+                                 Scope nesting level: 2
+                                 Type form = scalar, Type id = integer
+There were no semantic errors.
+
+PASS 3 Compilation: ProgramName: test
+visitProgram
+emitProgram
+emitProgramVariables
+emitSubroutines
+visitRoutineDefinition
+emitRoutine
+visitStatement
+visitAssignmentStatement
+emitAssignment
+visitExpression
+emitExpression
+emitSimpleExpression
+emitTerm
+visitVariableFactor
+emitLoadValue
+emitTerm
+visitVariableFactor
+emitLoadValue
+visitStatement
+visitAssignmentStatement
+emitAssignment
+visitExpression
+emitExpression
+emitSimpleExpression
+emitTerm
+visitVariableFactor
+emitLoadValue
+visitStatement
+emitMainMethod
+visitStatement
+visitAssignmentStatement
+emitAssignment
+visitExpression
+emitExpression
+emitSimpleExpression
+emitTerm
+visitNumberFactor
+emitLoadIntegerConstant
+visitStatement
+visitAssignmentStatement
+emitAssignment
+visitExpression
+emitExpression
+emitSimpleExpression
+emitTerm
+visitNumberFactor
+emitLoadIntegerConstant
+visitStatement
+visitAssignmentStatement
+emitAssignment
+visitExpression
+emitExpression
+emitSimpleExpression
+emitTerm
+visitFunctionCallFactor
+emitFunctionCall
+visitStatement
+0x7ffbfc4368f0

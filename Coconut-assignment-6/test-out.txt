@@ -1,0 +1,89 @@
+
+Parsing Pass: There were no syntax errors.
+
+Parse tree (Lisp format):
+(program (programHeader PROGRAM (programIdentifier Hello) ;) (block (declarations (constantsPart CONST (constantDefinitionsList (constantDefinition (constantIdentifier PI) = (constant (unsignedNumber (realConstant 3.141592653589)))) ; (constantDefinition (constantIdentifier MAXLEN) = (constant (unsignedNumber (integerConstant 10)))))) ; (typesPart TYPE (typeDefinitionsList (typeDefinition (typeIdentifier arr1d) = (typeSpecification (arrayType ARRAY [ (arrayDimensionList (simpleType (typeIdentifier CHAR))) ] of (typeSpecification (simpleType (typeIdentifier INTEGER)))))) ; (typeDefinition (typeIdentifier arr2d) = (typeSpecification (arrayType ARRAY [ (arrayDimensionList (simpleType (typeIdentifier CHAR)) , (simpleType (typeIdentifier CHAR))) ] of (typeSpecification (simpleType (typeIdentifier INTEGER)))))))) ; (variablesPart VAR (variableDeclarationsList (variableDeclarations (variableIdentifierList (variableIdentifier iter)) : (typeSpecification (simpleType (typeIdentifier CHAR)))) ; (variableDeclarations (variableIdentifierList (variableIdentifier ret)) : (typeSpecification (simpleType (typeIdentifier INTEGER)))) ; (variableDeclarations (variableIdentifierList (variableIdentifier myarr1)) : (typeSpecification (simpleType (typeIdentifier arr1d)))) ; (variableDeclarations (variableIdentifierList (variableIdentifier myarr2)) : (typeSpecification (simpleType (typeIdentifier arr2d)))))) ; (routinesPart (routineDefinition (functionHead FUNCTION (routineIdentifier printfn) (parameters ( (parameterDeclarationsList (parameterDeclarations (parameterIdentifierList (parameterIdentifier arr)) : (typeIdentifier arr1d))) )) : (typeIdentifier INTEGER)) ; (block (declarations (variablesPart VAR (variableDeclarationsList (variableDeclarations (variableIdentifierList (variableIdentifier i)) : (typeSpecification (simpleType (typeIdentifier CHAR)))) ; (variableDeclarations (variableIdentifierList (variableIdentifier count)) : (typeSpecification (simpleType (typeIdentifier INTEGER)))))) ;) (compoundStatement BEGIN (statementList (statement (forStatement FOR (variable (variableIdentifier i)) := (expression (simpleExpression (term (factor (characterConstant 'a'))))) to (expression (simpleExpression (term (factor (characterConstant 'z'))))) DO (statement (compoundStatement BEGIN (statementList (statement (writelnStatement writeln (writeArguments ( (writeArgument (expression (simpleExpression (term (factor (stringConstant 'array value [')))))) , (writeArgument (expression (simpleExpression (term (factor (variable (variableIdentifier i))))))) , (writeArgument (expression (simpleExpression (term (factor (stringConstant '] = ')))))) , (writeArgument (expression (simpleExpression (term (factor (variable (variableIdentifier myarr1) (modifier [ (indexList (index (expression (simpleExpression (term (factor (variable (variableIdentifier i)))))))) ]))))))) )))) ; (statement (assignmentStatement (lhs (variable (variableIdentifier count))) := (rhs (expression (simpleExpression (term (factor (variable (variableIdentifier count)))) (addOp +) (term (factor (number (unsignedNumber (integerConstant 1)))))))))) ; (statement emptyStatement)) END)))) ; (statement (assignmentStatement (lhs (variable (variableIdentifier printfn))) := (rhs (expression (simpleExpression (term (factor (variable (variableIdentifier count))))))))) ; (statement emptyStatement)) END)))) ;) (compoundStatement BEGIN (statementList (statement (assignmentStatement (lhs (variable (variableIdentifier ret))) := (rhs (expression (simpleExpression (term (factor (functionCall (functionName printfn) ( (argumentList (argument (expression (simpleExpression (term (factor (variable (variableIdentifier myarr1)))))))) ))))))))) ; (statement (forStatement FOR (variable (variableIdentifier iter)) := (expression (simpleExpression (term (factor (characterConstant 'a'))))) to (expression (simpleExpression (term (factor (characterConstant 'z'))))) DO (statement (compoundStatement BEGIN (statementList (statement (assignmentStatement (lhs (variable (variableIdentifier myarr1) (modifier [ (indexList (index (expression (simpleExpression (term (factor (variable (variableIdentifier iter)))))))) ]))) := (rhs (expression (simpleExpression (term (factor (variable (variableIdentifier ret))))))))) ; (statement emptyStatement)) END)))) ; (statement (writelnStatement writeln (writeArguments ( (writeArgument (expression (simpleExpression (term (factor (variable (variableIdentifier PI))))))) )))) ; (statement emptyStatement)) END)) .)
+
+Semantic Pass:
+
+===== SYMBOL TABLE & TYPE INFO =====
+
+*** PROGRAM Hello ***
+
+Identifier       Line numbers    Type specification
+----------       ------------    ------------------
+arr1d            008 014 017
+                                 Defined as: type
+                                 Scope nesting level: 1
+                                 Type form = array, Type id = arr1d
+                                 --- INDEX TYPE ---
+                                 Type form = scalar, Type id = char
+                                 --- ELEMENT TYPE ---
+                                 Type form = scalar, Type id = integer
+                                 0 elements
+arr2d            009 015
+                                 Defined as: type
+                                 Scope nesting level: 1
+                                 Type form = array, Type id = arr2d
+                                 --- INDEX TYPE ---
+                                 Type form = scalar, Type id = char
+                                 --- ELEMENT TYPE ---
+                                 Type form = array, Type id = <unnamed>
+                                 0 elements
+                                 --- INDEX TYPE ---
+                                 Type form = scalar, Type id = char
+                                 --- ELEMENT TYPE ---
+                                 Type form = scalar, Type id = integer
+                                 0 elements
+iter             012 034 036
+                                 Defined as: variable
+                                 Scope nesting level: 1
+                                 Type form = scalar, Type id = char
+maxlen           005
+                                 Defined as: constant
+                                 Scope nesting level: 1
+                                 Type form = scalar, Type id = integer
+                                 Value: 10
+myarr1           014 025 032 036
+                                 Defined as: variable
+                                 Scope nesting level: 1
+                                 Type form = array, Type id = arr1d
+myarr2           015
+                                 Defined as: variable
+                                 Scope nesting level: 1
+                                 Type form = array, Type id = arr2d
+pi               004 038
+                                 Defined as: constant
+                                 Scope nesting level: 1
+                                 Type form = scalar, Type id = real
+                                 Value: 3.141593
+printfn         
+                                 Defined as: FUNCTION
+                                 Scope nesting level: 1
+                                 Type form = scalar, Type id = integer
+ret              013 032 036
+                                 Defined as: variable
+                                 Scope nesting level: 1
+                                 Type form = scalar, Type id = integer
+
+*** FUNCTION printfn ***
+
+Identifier       Line numbers    Type specification
+----------       ------------    ------------------
+arr              017
+                                 Defined as: value parameter
+                                 Scope nesting level: 2
+                                 Type form = array, Type id = arr1d
+count            020 026 026 028
+                                 Defined as: variable
+                                 Scope nesting level: 2
+                                 Type form = scalar, Type id = integer
+i                019 023 025 025
+                                 Defined as: variable
+                                 Scope nesting level: 2
+                                 Type form = scalar, Type id = char
+printfn          028
+                                 Defined as: variable
+                                 Scope nesting level: 2
+                                 Type form = scalar, Type id = integer
+There were no semantic errors.

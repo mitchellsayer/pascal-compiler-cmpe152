@@ -1,0 +1,68 @@
+
+Parsing Pass: There were no syntax errors.
+
+Parse tree (Lisp format):
+(program 
+    (programHeader PROGRAM (programIdentifier test) ;)
+    (block 
+        (declarations (variablesPart VAR (variableDeclarationsList 
+            (variableDeclarations (variableIdentifierList (variableIdentifier alpha)) : 
+                (typeSpecification (simpleType (typeIdentifier INTEGER)))) ; 
+            (variableDeclarations (variableIdentifierList (variableIdentifier beta)) : 
+                (typeSpecification (simpleType (typeIdentifier INTEGER)))) ; 
+            (variableDeclarations (variableIdentifierList (variableIdentifier result)) : 
+                (typeSpecification (simpleType (typeIdentifier INTEGER)))))
+        ) ; ) 
+        (compoundStatement BEGIN (statementList 
+            (statement (assignmentStatement (lhs (variable (variableIdentifier alpha))) := 
+                (rhs (expression (simpleExpression 
+                    (sign -) 
+                    (term (factor (number (unsignedNumber (integerConstant 88)))))))))) ;
+            (statement (assignmentStatement (lhs (variable (variableIdentifier beta))) := 
+                (rhs (expression (simpleExpression 
+                    (term (factor (number (unsignedNumber (integerConstant 99)))))))))) ; 
+            (statement (assignmentStatement (lhs (variable (variableIdentifier result))) := 
+                (rhs (expression (simpleExpression 
+                    (term (factor (variable (variableIdentifier alpha)))) 
+                    (addOp +) 
+                    (term 
+                        (factor (number (unsignedNumber (integerConstant 3)))) 
+                        (mulOp /) 
+                        (factor ( (expression (simpleExpression 
+                            (term (factor (variable (variableIdentifier beta))))
+                        ))) 
+                    )) 
+                    (addOp +) 
+                    (term (factor (number (unsignedNumber (integerConstant 5))))))))))) 
+        END
+    )) 
+.)
+
+Semantic Pass:
+
+===== SEMANTIC ERRORS =====
+
+Line Message                                  Found near
+---- -------                                  ----------
+011  Incompatible assignment                  "result:=alpha+3/(beta)+5"
+
+===== SYMBOL TABLE & TYPE INFO =====
+
+*** PROGRAM test ***
+
+Identifier       Line numbers    Type specification
+----------       ------------    ------------------
+alpha            004 009 011
+                                 Defined as: variable
+                                 Scope nesting level: 1
+                                 Type form = scalar, Type id = integer
+beta             005 010 011
+                                 Defined as: variable
+                                 Scope nesting level: 1
+                                 Type form = scalar, Type id = integer
+result           006 011
+                                 Defined as: variable
+                                 Scope nesting level: 1
+                                 Type form = scalar, Type id = integer
+
+Semantic errors found: 1
