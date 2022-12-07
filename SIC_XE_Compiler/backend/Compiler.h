@@ -8,7 +8,6 @@
 #include "intermediate/symtab/SymtabEntry.h"
 #include "intermediate/type/Typespec.h"
 #include "ProgramGenerator.h"
-#include "StatementGenerator.h"
 #include "ExpressionGenerator.h"
 
 namespace backend {
@@ -26,15 +25,13 @@ private:
 
     CodeGenerator       *code;            // base code generator
     ProgramGenerator    *programCode;     // program code generator
-    StatementGenerator  *statementCode;   // statement code generator
     ExpressionGenerator *expressionCode;  // expression code generator
 
 public:
     Compiler(SymtabEntry *programId) : 
             programId(programId),
-            code(new CodeGenerator(programName, "j", this)), 
+            code(new CodeGenerator(programName, "asm", this)), 
             programCode(nullptr),
-            statementCode(nullptr), 
             expressionCode(nullptr),
             programName(programId->getName()) 
     {
@@ -46,7 +43,6 @@ public:
         programName(parent->programName),
         code(parent->code),
         programCode(parent->programCode),
-        statementCode(nullptr),
         expressionCode(nullptr) 
         {}
 
@@ -56,29 +52,18 @@ public:
     Object visitRoutineDefinition(PascalParser::RoutineDefinitionContext *ctx) override;
     Object visitStatement(PascalParser::StatementContext *ctx) override;
     Object visitAssignmentStatement(PascalParser::AssignmentStatementContext *ctx) override;
-    Object visitIfStatement(PascalParser::IfStatementContext *ctx) override;
-    Object visitCaseStatement(PascalParser::CaseStatementContext *ctx) override;
-    Object visitRepeatStatement(PascalParser::RepeatStatementContext *ctx) override;
-    Object visitWhileStatement(PascalParser::WhileStatementContext *ctx) override;
-    Object visitForStatement(PascalParser::ForStatementContext *ctx) override;
     Object visitExpression(PascalParser::ExpressionContext *ctx) override;
     Object visitVariableFactor(PascalParser::VariableFactorContext *ctx) override;
     Object visitVariable(PascalParser::VariableContext *ctx) override;
     Object visitNumberFactor(PascalParser::NumberFactorContext *ctx) override;
     Object visitCharacterFactor(PascalParser::CharacterFactorContext *ctx) override;
-    Object visitStringFactor(PascalParser::StringFactorContext *ctx) override;
     Object visitFunctionCallFactor(PascalParser::FunctionCallFactorContext *context) override;
     Object visitNotFactor(PascalParser::NotFactorContext *ctx) override;
     Object visitParenthesizedFactor(PascalParser::ParenthesizedFactorContext *ctx) override;
-    Object visitWriteStatement(PascalParser::WriteStatementContext *ctx) override;
-    Object visitWritelnStatement(PascalParser::WritelnStatementContext *ctx) override;
-    Object visitReadStatement(PascalParser::ReadStatementContext *ctx) override;
-    Object visitReadlnStatement(PascalParser::ReadlnStatementContext *ctx) override;
 
 private:
     void createNewGenerators(CodeGenerator *parentGenerator) {
         programCode    = new ProgramGenerator(parentGenerator, this);
-        statementCode  = new StatementGenerator(programCode, this);
         expressionCode = new ExpressionGenerator(programCode, this);
     }
 };

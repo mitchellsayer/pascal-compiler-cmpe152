@@ -1,11 +1,3 @@
-/**
- * <h1>Label</h1>
- *
- * <p>Jasmin instruction label.</p>
- *
- * <p>Copyright (c) 2020 by Ronald Mak</p>
- * <p>For instructional purposes only.  No warranties.</p>
- */
 #ifndef LABEL_H_
 #define LABEL_H_
 
@@ -19,8 +11,8 @@ using namespace std;
 
 class Label {
 private:
-    static int index;  // index for generating label strings
-    string label;      // the label string
+    static int index;
+    string label;
 
 public:
     Label() {
@@ -34,12 +26,11 @@ public:
     friend ostream& operator << (ostream& ofs, const Label *label);
 };
 
-inline ostream& operator << (ostream& ofs, const Label *label)
-{
+inline ostream& operator << (ostream& ofs, const Label *label) {
     ofs << label->getString();
     return ofs;
 }
 
 }
 
-#endif /* LABEL_H_ */
+#endif

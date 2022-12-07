@@ -23,7 +23,7 @@ enum class Opcode
     NORM, AND, OR,
 
     // Jump & Compare Opcodes
-    J, JEQ, JGT, JLT, JSUB,
+    J, JEQ, JGT, JLT, JSUB, JRET,
     COMP, COMPF, COMPR,
 
     // Type conversions
@@ -38,17 +38,11 @@ enum class Opcode
 
     // Memory Declaration
     RESW, RESB,
-    WORD, BYTE,
+    WORD, BYTE, DWORD,
 
     // Control
     START, END
 };
-
-
-// inline int stackUse(Opcode Opcode)
-// {
-//     return STACK_USE[static_cast<int>(Opcode)];
-// }
 
 static const string Opcode_STRINGS[] =
 {
@@ -66,7 +60,7 @@ static const string Opcode_STRINGS[] =
     "NORM", "AND", "OR",
 
     // Jump Opcodes
-    "J", "JEQ", "JGT", "JLT", "JSUB",
+    "J", "JEQ", "JGT", "JLT", "JSUB", "JRET",
     "COMP", "COMPF", "COMPR",
 
     // Type conversions
@@ -81,7 +75,7 @@ static const string Opcode_STRINGS[] =
 
     // Memory Declaration
     "RESW", "RESB",
-    "WORD", "BYTE",
+    "WORD", "BYTE", "DWORD",
 
     // Control
     "START", "END"
@@ -132,6 +126,7 @@ constexpr Opcode J = Opcode::J;       // PC <-- m
 constexpr Opcode JEQ = Opcode::JEQ;   // PC <-- m if CC set to =
 constexpr Opcode JGT = Opcode::JGT;   // PC <-- m if CC set to >
 constexpr Opcode JLT = Opcode::JLT;   // PC <-- m if CC set to <
+constexpr Opcode JRET = Opcode::JRET;
 constexpr Opcode JSUB = Opcode::JSUB; // L <-- (PC); PC <-- m
 constexpr Opcode COMP = Opcode::COMP;    // A : (m..m+2)
 constexpr Opcode COMPF = Opcode::COMPF;  // F : (m..m+5) 
@@ -165,7 +160,8 @@ constexpr Opcode WD = Opcode::WD;     // Device specified by (m) <-- (A) [rightm
 // Memory Declaration
 constexpr Opcode RESW = Opcode::RESW; 
 constexpr Opcode RESB = Opcode::RESB;
-constexpr Opcode WORD = Opcode::WORD; 
+constexpr Opcode WORD = Opcode::WORD;
+constexpr Opcode DWORD = Opcode::DWORD;  
 constexpr Opcode BYTE = Opcode::BYTE;
 
 // Control
@@ -174,7 +170,7 @@ constexpr Opcode END = Opcode::END;
 
 inline ostream& operator << (ostream& ofs, const Opcode& Opcode)
 {
-    ofs << toLowerCase(Opcode_STRINGS[static_cast<int>(Opcode)]);
+    ofs << toUpperCase(Opcode_STRINGS[static_cast<int>(Opcode)]);
     return ofs;
 }
 

@@ -5,19 +5,13 @@
 
 namespace backend {
 
-class ProgramGenerator : public CodeGenerator
-{
+class ProgramGenerator : public CodeGenerator {
 private:
     SymtabEntry *programId;  // symbol table entry of the program name
     int programLocalsCount;  // count of program local variables
 
 public:
-    ProgramGenerator(CodeGenerator *parent, Compiler *compiler)
-        : CodeGenerator(parent, compiler),
-          programId(nullptr), programLocalsCount(5) // 5 because _elapsed is long
-    {
-        // localStack = new LocalStack();
-    }
+    ProgramGenerator(CodeGenerator *parent, Compiler *compiler): CodeGenerator(parent, compiler), programId(nullptr), programLocalsCount(0) {}
 
     void emitProgram(PascalParser::ProgramContext *ctx);
 
@@ -25,12 +19,6 @@ public:
 
 private:
     void emitProgramVariables();
-
-    void emitMemoryDeclarations();
-
-    void emitInputScanner();
-
-    void emitConstructor();
 
     void emitSubroutines(PascalParser::RoutinesPartContext *ctx);
 
@@ -42,11 +30,7 @@ private:
 
     void emitRoutineHeader(SymtabEntry *routineId);
 
-    /*
-     * Emit directives for the local variables.
-     * @param routineId the symbol table entry of the routine's name.
-     */
-    void emitRoutineLocals(SymtabEntry *routineId);
+    int emitRoutineLocals(SymtabEntry *routineId);
 
     void emitRoutineReturn(SymtabEntry *routineId);
 

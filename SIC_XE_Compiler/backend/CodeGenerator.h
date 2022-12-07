@@ -65,21 +65,15 @@ public:
 
     void emitComment(PascalParser::StatementContext *ctx);
 
+    void emitComment(PascalParser::CompoundStatementContext *ctx);
+
     void emitLabel(Label *label);
+
+    void emitLabel(string label);
 
     void emitLabel(int value, Label *label);
 
     void emitLabel(string value, Label *label);
-
-    // void emitDirective(Directive directive);
-
-    // void emitDirective(Directive directive, string operand);
-
-    // void emitDirective(Directive directive, int operand);
-
-    // void emitDirective(Directive directive, string operand1, string operand2);
-
-    // void emitDirective(Directive directive, string operand1, string operand2, string operand3);
 
     void emit(Opcode instruction);
 
@@ -100,15 +94,15 @@ public:
     // =====
     // Loads
     // =====
-    void emitLoadConstant(int value);
+    void emitLoadConstant(int value, int offset, int nestingLevel);
 
-    void emitLoadConstant(double value);
+    void emitLoadConstant(double value, int offset, int nestingLevel);
 
-    void emitLoadConstant(string value);
+    void emitLoadConstant(string value, int offset, int nestingLevel);
 
     void emitLoadValue(SymtabEntry *variableId);
 
-    void emitLoadLocal(Typespec *type, int index);
+    void emitLoadLocal(Typespec *type, int slot, int nestingLevel);
 
     // ======
     // Stores
@@ -116,19 +110,13 @@ public:
 
     void emitStoreValue(SymtabEntry *targetId, Typespec *targetType);
 
-    void emitStoreLocal(Typespec *type, int slot);
+    void emitStoreLocal(Typespec *type, int slot, int nestingLevel);
 
     // ======================
     // Miscellaneous emitters
     // ======================
 
-    void emitCheckCast(Typespec *type);
-
-    void emitCheckCastClass(Typespec *type);
-
     void emitReturnValue(Typespec *type);
-
-    void emitRangeCheck(Typespec*targetType);
 
     // =========
     // Utilities
@@ -137,13 +125,9 @@ public:
 
     string typeDescriptor(Typespec *pascalType);
 
-    string objectTypeName(Typespec *pascalType);
-
     bool needsCloning(SymtabEntry *formalId);
 
-    string valueOfSignature(Typespec *type);
-
-    string valueSignature(Typespec *type);
+    // string valueOfSignature(Typespec *type);
 
 private:
     void emitStoreToUnmodifiedVariable(SymtabEntry *targetId, Typespec *targetType);

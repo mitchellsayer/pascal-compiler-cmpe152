@@ -26,12 +26,9 @@ public:
 
     void emitLoadRealConstant(PascalParser::NumberContext *realCtx);
 
-private:
-    Typespec *emitLoadArrayElementAccess(PascalParser::IndexListContext *indexListCtx, Typespec *elmtType, bool lastModifier);
+    void emitAssignment(PascalParser::AssignmentStatementContext *ctx);
 
-    void emitLoadArrayElementValue(Typespec *elmtType);
-
-    void emitLoadRecordFieldValue(PascalParser::FieldContext *fieldCtx, Typespec *recordType);
+    void emitFunctionCall(PascalParser::FunctionCallContext *ctx);
 };
 
 }

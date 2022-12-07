@@ -59,14 +59,14 @@ namespace backend {
 
 using namespace std;
 
-class LocalStack {
+class RuntimeStack {
 private:
     int size;     // current stack size
     int maxSize;  // maximum attained stack size
     // vector<int> display_vec;
 
 public:
-    LocalStack() : size(0), maxSize(0) {}
+    RuntimeStack() : size(0), maxSize(0) {}
 
     void initializeFrame() {
 

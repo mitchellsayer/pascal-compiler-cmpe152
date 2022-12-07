@@ -8,14 +8,14 @@ ANTLR_INCLUDES=$(PROJECTPATH)/target/generated-sources/ant4
 LIB_PATH=/usr/local/lib
 LIB=antlr4-runtime
 
-PROG=ExprMain.cpp
+PROG=CompilerMain.cpp
 FRONTEND=$(PROJECTPATH)/frontend/*.cpp
 BACKEND=$(PROJECTPATH)/backend/*.cpp
 SYMTAB=$(PROJECTPATH)/intermediate/symtab/*.cpp
 TYPE=$(PROJECTPATH)/intermediate/type/*.cpp
 UTIL=$(PROJECTPATH)/intermediate/util/*.cpp
 
-OUT=parser
+OUT=compiler
 ANTLR_SOURCES=target/generated-sources/ant4/*.cpp
 SOURCES=$(ANTLR_SOURCES) $(PROG) $(FRONTEND) $(BACKEND) $(SYMTAB) $(TYPE) $(UTIL)
 
